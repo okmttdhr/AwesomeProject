@@ -14,23 +14,52 @@ var {
 } = React;
 
 var MOCKED_MOVIES_DATA = [
-  {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
+  {
+    title: 'Title',
+    year: '2015',
+    posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}
+  },
 ];
 
 var AwesomeProject = React.createClass({
   render: function() {
+    var movie = MOCKED_MOVIES_DATA[0];
+    var styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+      },
+      rightContainer: {
+        flex: 1,
+      },
+      thumbnail: {
+        width: 53,
+        height: 81,
+      },
+      title: {
+        fontSize: 20,
+        marginBottom: 8,
+        textAlign: 'center',
+      },
+      year: {
+        textAlign: 'center',
+      },
+    });
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+Control+Z for dev menu
-        </Text>
+        <Text>{movie.title}</Text>
+        <Text>{movie.year}</Text>
+        <Image
+          source={{uri: movie.posters.thumbnail}}
+          style={styles.thumbnail}
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
       </View>
     );
   }
