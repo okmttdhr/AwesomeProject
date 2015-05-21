@@ -38,4 +38,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
+AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
