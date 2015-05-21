@@ -256,6 +256,7 @@ var SearchScreen = React.createClass({
   // 引数は、(rowData, sectionID, rowID) 。
   // rowData には、dataSource がはいっている
   // https://facebook.github.io/react-native/docs/listview.html#renderrow
+  // dataSource の配列分繰り返される。
   renderRow: function(movie: Object)  {
     return (
       <MovieCell

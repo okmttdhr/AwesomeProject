@@ -16,6 +16,7 @@
 'use strict';
 
 function getTextFromScore(score: number): string {
+  // %をつけて返す
   return score > 0 ? score + '%' : 'N/A';
 }
 

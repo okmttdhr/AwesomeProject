@@ -16,7 +16,9 @@
 'use strict';
 
 function getImageSource(movie: Object, kind: ?string): {uri: ?string} {
+  // movie.posters のうむによって画像を返す
   var uri = movie && movie.posters ? movie.posters.thumbnail : null;
+  // URLを正しく変える。細かいロジックは無視
   if (uri && kind) {
     uri = uri.replace('tmb', kind);
   }

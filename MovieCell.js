@@ -29,6 +29,7 @@ var getStyleFromScore = require('./getStyleFromScore');
 var getImageSource = require('./getImageSource');
 var getTextFromScore = require('./getTextFromScore');
 
+// this.props.movie でListView のデータ取得
 var MovieCell = React.createClass({
   render: function() {
     var criticsScore = this.props.movie.ratings.critics_score;

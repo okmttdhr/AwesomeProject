@@ -23,10 +23,12 @@ var {
 var MAX_VALUE = 200;
 
 function getStyleFromScore(score: number): {color: string} {
+  // 0点の場合は黒を返す
   if (score < 0) {
     return styles.noScore;
   }
 
+  // 数字によって色を変えている。細かい理屈は理解する必要なし
   var normalizedScore = Math.round((score / 100) * MAX_VALUE);
   return {
     color: 'rgb(' +
