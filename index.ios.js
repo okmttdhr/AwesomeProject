@@ -9,11 +9,7 @@ var SearchScreen = require('./SearchScreen');
 
 var {
   AppRegistry,
-  Image,
-  ListView,
   StyleSheet,
-  Text,
-  View,
   NavigatorIOS,
 } = React;
 
