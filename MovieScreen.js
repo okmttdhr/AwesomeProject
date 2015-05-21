@@ -60,6 +60,7 @@ var MovieScreen = React.createClass({
   },
 });
 
+// レートのエリア
 var Ratings = React.createClass({
   render: function() {
     var criticsScore = this.props.ratings.critics_score;
@@ -84,6 +85,7 @@ var Ratings = React.createClass({
   },
 });
 
+// キャストのリストを繰り返す
 var Cast = React.createClass({
   render: function() {
     if (!this.props.actors) {
@@ -93,6 +95,7 @@ var Cast = React.createClass({
     return (
       <View>
         <Text style={styles.castTitle}>Actors</Text>
+        // mapが普通に使える
         {this.props.actors.map(actor =>
           <Text key={actor.name} style={styles.castActor}>
             &bull; {actor.name}
