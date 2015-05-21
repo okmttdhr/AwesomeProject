@@ -17,7 +17,7 @@
 
 var React = require('react-native');
 var {
-  ActivityIndicatorIOS,
+  ActivityIndicatorIOS, // ローディングのcomponent
   ListView,
   StyleSheet,
   Text,
@@ -255,12 +255,21 @@ var SearchScreen = React.createClass({
       <ListView
         ref="listview"
         dataSource={this.state.dataSource}
+        // ListViewの関数。Footerを描画
+        // https://facebook.github.io/react-native/docs/listview.html#renderfooter
         renderFooter={this.renderFooter}
         renderRow={this.renderRow}
+        // Called when all rows have been rendered
         onEndReached={this.onEndReached}
         automaticallyAdjustContentInsets={false}
+        // Determines whether the keyboard gets dismissed in response to a drag.
+        // https://facebook.github.io/react-native/docs/scrollview.html#keyboarddismissmode
         keyboardDismissMode="onDrag"
-        keyboardShouldPersistTaps={true}
+        // keyboard 時に、input の外をタップした場合、keyboard を dismiss するかどうか。
+        // false だと dismiss し、デフォルトイベントは発生しない。
+        // true だと、dismiss せず、通常のタップイベントがあればそれが起こる。
+        keyboardShouldPersistTaps={false}
+        // スクロールバー
         showsVerticalScrollIndicator={false}
       />;
 
@@ -281,6 +290,7 @@ var SearchScreen = React.createClass({
 var NoMovies = React.createClass({
   render: function() {
     var text = '';
+    // this.state で渡ってきてthis.props で参照
     if (this.props.filter) {
       text = `No results for “${this.props.filter}”`;
     } else if (!this.props.isLoading) {
