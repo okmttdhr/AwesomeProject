@@ -69,6 +69,8 @@ var SearchScreen = React.createClass({
     };
   },
 
+  // 初回の描画が行われる直前に呼び出されます。
+  // renderメソッドが呼び出される前にコンポーネントの状態を変更したい場合、これが最後の機会となります。
   componentDidMount: function() {
     this.searchMovies('');
   },
@@ -89,11 +91,13 @@ var SearchScreen = React.createClass({
     }
   },
 
+  // 実際の検索メソッド
   searchMovies: function(query: string) {
     this.timeoutID = null;
 
     this.setState({filter: query});
 
+    // cached されているデータが有る場合
     var cachedResultsForQuery = resultsCache.dataForQuery[query];
     if (cachedResultsForQuery) {
       if (!LOADING[query]) {
@@ -107,6 +111,7 @@ var SearchScreen = React.createClass({
       return;
     }
 
+    // cached されているデータがない場合
     LOADING[query] = true;
     resultsCache.dataForQuery[query] = null;
     this.setState({
@@ -115,9 +120,11 @@ var SearchScreen = React.createClass({
       isLoadingTail: false,
     });
 
+    // API通信
     fetch(this._urlForQueryAndPage(query, 1))
       .then((response) => response.json())
       .catch((error) => {
+        // 失敗時
         LOADING[query] = false;
         resultsCache.dataForQuery[query] = undefined;
 
@@ -127,6 +134,7 @@ var SearchScreen = React.createClass({
         });
       })
       .then((responseData) => {
+        // 成功時
         LOADING[query] = false;
         resultsCache.totalForQuery[query] = responseData.total;
         resultsCache.dataForQuery[query] = responseData.movies;
@@ -137,6 +145,7 @@ var SearchScreen = React.createClass({
           return;
         }
 
+        // dataSource の更新
         this.setState({
           isLoading: false,
           dataSource: this.getDataSource(responseData.movies),
@@ -215,6 +224,7 @@ var SearchScreen = React.createClass({
     return this.state.dataSource.cloneWithRows(movies);
   },
 
+  // Movie 詳細ページへ
   selectMovie: function(movie: Object) {
     this.props.navigator.push({
       title: movie.title,
@@ -223,10 +233,16 @@ var SearchScreen = React.createClass({
     });
   },
 
+  // 検索メソッド
+  // 引数はevent
+  // 例: console.log(event.nativeEvent); // {target: 7, text: "aaaaaaa"}
   onSearchChange: function(event: Object) {
+    // テキストを取得、query として投げる
     var filter = event.nativeEvent.text.toLowerCase();
 
     this.clearTimeout(this.timeoutID);
+
+    // 少し遅れらせて実行
     this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 100);
   },
 
@@ -237,6 +253,9 @@ var SearchScreen = React.createClass({
     return <ActivityIndicatorIOS style={styles.scrollSpinner} />;
   },
 
+  // 引数は、(rowData, sectionID, rowID) 。
+  // rowData には、dataSource がはいっている
+  // https://facebook.github.io/react-native/docs/listview.html#renderrow
   renderRow: function(movie: Object)  {
     return (
       <MovieCell
