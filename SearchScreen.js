@@ -290,7 +290,8 @@ var SearchScreen = React.createClass({
 var NoMovies = React.createClass({
   render: function() {
     var text = '';
-    // this.state で渡ってきてthis.props で参照
+    // React.jsのProp - Qiita
+    // http://qiita.com/koba04/items/bc13d1f42964278ae14e
     if (this.props.filter) {
       text = `No results for “${this.props.filter}”`;
     } else if (!this.props.isLoading) {
