@@ -314,8 +314,10 @@ var SearchBar = React.createClass({
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
+          // 変更時のメソッド。<SearchBar onSearchChange="" />を参照
           onChange={this.props.onSearchChange}
           placeholder="Search a movie..."
+          // <SearchBar onFocus="" />を参照
           onFocus={this.props.onFocus}
           style={styles.searchBarInput}
         />
@@ -328,6 +330,9 @@ var SearchBar = React.createClass({
   }
 });
 
+// Flexbox について。↓
+// これからのCSSレイアウトはFlexboxで決まり！ | Webクリエイターボックス
+// http://www.webcreatorbox.com/tech/flexbox/
 var styles = StyleSheet.create({
   container: {
     flex: 1,
